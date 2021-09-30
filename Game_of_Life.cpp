@@ -7,7 +7,7 @@ using namespace std;
 //functio prototypes
 void assignRandom(char[][30], const int);
 void showLifeboard(char[][30], const int);
-void lifeConditions(char[][30], const int, const int);
+void lifeConditions(char[][30], char[][30], const int, const int);
 
 int main()
 {
@@ -20,7 +20,11 @@ int main()
     //the bord of life containing the cells
     char life[size][size] = {};
 
-    cout << "\n\n\t\t\t\t :::::::::::: Game of Life :::::::::::: \n\n"<< endl;
+    //for storing for temporary time
+    char duplicateLife[size][size] = {};
+
+    cout << "\n\n\t\t\t\t :::::::::::: Game of Life :::::::::::: \n\n"
+         << endl;
 
     system("pause");
 
@@ -63,12 +67,21 @@ int main()
         showLifeboard(life, size);
 
         //checking on each cell of bord what will be it's fate by seeing it's neighbours
-        for (int i = 0; i < 30; i++)
+        for (int i = 1; i < 29; i++)
         {
-            for (int j = 0; j < 30; j++)
+            for (int j = 1; j < 29; j++)
             {
                 //will check neighbours and will decide according to the conditions
-                lifeConditions(life, i, j);
+                lifeConditions(life, duplicateLife, i, j);
+            }
+        }
+
+        //now assiginging the duplicatelife to the real life
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                life[i][j] = duplicateLife[i][j];
             }
         }
 
@@ -96,7 +109,7 @@ void assignRandom(char lifeCells[][30], const int s)
         for (j = 0; j < s; j++)
         {
             //if generated is less than 40 then make * alive
-            if (rand() % 100 < 40)
+            if (rand() % 100 <= 60)
             {
                 lifeCells[i][j] = '*';
             }
@@ -130,7 +143,7 @@ void showLifeboard(char lifeCells[][30], const int s)
 }
 
 //will check conditions which decides the status of current cell
-void lifeConditions(char lifeCells[][30], const int row, const int col)
+void lifeConditions(char lifeCells[][30], char duplicateLife[][30], const int row, const int col)
 {
 
     //to count alive so that can check the main 4 conditions
@@ -198,29 +211,28 @@ void lifeConditions(char lifeCells[][30], const int row, const int col)
         countalive++;
     }
 
-    //deciding the future of current cell on the basis of above cells
+    //deciding the future of current cell on the basis of above cells and will assign to the duplicate life
 
     //Any live cell with 0 or 1 live neighbors becomes dead, because of underpopulation
     if (countalive == 0 || countalive == 1 && active == true)
     {
-        lifeCells[row][col] = ' ';
+        duplicateLife[row][col] = ' ';
     }
-
-    //Any live cell with 2 or 3 live neighbors stays alive, because its neighborhood is just right
-    if (countalive == 2 || countalive == 3 && active == true)
+    else if (countalive == 2 || countalive == 3 && active == true)
     {
-        lifeCells[row][col] = '*';
+        //Any live cell with 2 or 3 live neighbors stays alive, because its neighborhood is just right
+        duplicateLife[row][col] = '*';
     }
-
-    //Any live cell with more than 3 live neighbors becomes dead, because of overpopulation
-    if (countalive > 3 && active == true)
+    else if (countalive > 3 && active == true)
     {
-        lifeCells[row][col] = ' ';
+        //Any live cell with more than 3 live neighbors becomes dead, because of overpopulation
+
+        duplicateLife[row][col] = ' ';
     }
-
-    //Any dead cell with exactly 3 live neighbors becomes alive, by reproduction
-    if (countalive == 3 && active == false)
+    else if (countalive == 3 && active == false)
     {
-        lifeCells[row][col] = '*';
+        //Any dead cell with exactly 3 live neighbors becomes alive, by reproduction
+
+        duplicateLife[row][col] = '*';
     }
 }
