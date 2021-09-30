@@ -13,15 +13,3 @@ number of them that are currently alive. A 2D matrix of size 30x30 was used to m
 ### Note : 
 &nbsp; &nbsp; &nbsp; &nbsp; * represents the alive cells and (space) ' ' represents the dead cells.
 
-# Sample Outputs
-
-![Screenshot (326)](https://user-images.githubusercontent.com/75754258/134756202-52ce85fd-0b79-4126-b422-9ab0a6f6b3fe.png)
-
-
-![Screenshot (327)](https://user-images.githubusercontent.com/75754258/134756204-57426a2d-cc7d-4e8d-acaf-22632e08bc09.png)
-
-
-![Screenshot (329)](https://user-images.githubusercontent.com/75754258/134756205-aaa0d93c-5968-4a25-bfad-0aab0ca8b138.png)
-
-
-![Screenshot (332)](https://user-images.githubusercontent.com/75754258/134756207-e649b392-8e71-4acb-853b-83c948b52293.png)
